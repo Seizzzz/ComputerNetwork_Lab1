@@ -16,14 +16,7 @@ struct FRAME {
     unsigned int  padding;
 };
 
-struct ACK_FRAME {
-    unsigned char kind;
-    unsigned char ack;
-    unsigned int padding;
-};
-
 static unsigned char send_buffer[MAX_SEQ + 1][PKT_LEN];
-static unsigned char recv_buffer[PKT_LEN];
 static unsigned char nbuffered = 0;
 static unsigned char frame_expected = 0;
 static unsigned char next_frame_to_send = 0;
@@ -66,12 +59,25 @@ static void send_data_frame(unsigned char next_frame_to_send, unsigned char fram
 
 static void send_ack_frame(void)
 {
-    struct ACK_FRAME s;
+    struct FRAME s;
 
     s.kind = FRAME_ACK;
     s.ack = (frame_expected + MAX_SEQ) % (MAX_SEQ + 1);
 
     dbg_frame("Send ACK %d\n", s.ack);
+
+    put_frame((unsigned char*)&s, 2);
+    stop_ack_timer();
+}
+
+static void send_nak_frame(void)
+{
+    struct FRAME s;
+
+    s.kind = FRAME_NAK;
+    s.ack = ack_expected;
+
+    dbg_frame("Send NAK %d\n", s.ack);
 
     put_frame((unsigned char*)&s, 2);
     stop_ack_timer();
@@ -107,6 +113,7 @@ int main(int argc, char** argv)
             len = recv_frame((unsigned char*)&f, sizeof f);
             if (len < 5 || crc32((unsigned char*)&f, len) != 0) {
                 dbg_event("**** Receiver Error, Bad CRC Checksum\n");
+                send_nak_frame();
                 break;
             }
 
@@ -122,6 +129,15 @@ int main(int argc, char** argv)
 
             case FRAME_ACK:
                 dbg_frame("Recv ACK %d\n", f.ack);
+                break;
+
+            case FRAME_NAK:
+                dbg_frame("Recv NAK %d\n", f.ack);
+                next_frame_to_send = ack_expected;
+                for (unsigned char i = 1; i <= nbuffered; i++) {
+                    send_data_frame(next_frame_to_send, frame_expected);
+                    next_frame_to_send = inc(next_frame_to_send);
+                }
                 break;
             }
 
@@ -143,7 +159,7 @@ int main(int argc, char** argv)
             break;
 
         case ACK_TIMEOUT:
-            dbg_event("---- ACK %d timeout\n", arg);
+            dbg_event("---- ACK %d timeout\n", (frame_expected + MAX_SEQ) % (MAX_SEQ + 1));
             send_ack_frame();
             break;
         }
