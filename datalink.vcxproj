@@ -67,10 +67,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="crc32.c" />
-    <ClCompile Include="datalink.c" />
+    <ClCompile Include="datalink.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="getopt.c" />
+    <ClCompile Include="GoBckN%28no ack%29.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GoBckN%28ack%29.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="lprintf.c" />
     <ClCompile Include="protocol.c" />
+    <ClCompile Include="Selective.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="getopt.h" />

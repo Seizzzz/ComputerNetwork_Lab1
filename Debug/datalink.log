@@ -1,7 +1,2 @@
-﻿  crc32.c
-  datalink.c
-  getopt.c
-  lprintf.c
-  protocol.c
-  正在生成代码...
-  datalink.vcxproj -> C:\Users\SLRYZD\Desktop\Lab1-2018(Win+Linux)\Lab1-Windows-VS2017\Debug\datalink.exe
+﻿  GoBckN(ack).c
+  datalink.vcxproj -> C:\Users\SLRYZD\Desktop\Github\ComputerNetwork_Lab1\Debug\datalink.exe

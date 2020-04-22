@@ -30,6 +30,15 @@
     <ClCompile Include="datalink.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Selective.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GoBckN%28ack%29.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GoBckN%28no ack%29.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="getopt.h">
