@@ -6,7 +6,7 @@
 
 #define DATA_TIMER  2000
 #define ACK_TIMER 500
-#define MAX_SEQ 31
+#define MAX_SEQ 43
 #define NR_BUFS ((MAX_SEQ + 1) / 2)
 
 struct FRAME { 
@@ -17,21 +17,33 @@ struct FRAME {
     unsigned int  padding;
 };
 
-static unsigned char recv_buffer[MAX_SEQ + 1][PKT_LEN];
-static unsigned char send_buffer[MAX_SEQ + 1][PKT_LEN];
-static unsigned char arrived[MAX_SEQ + 1];
+static unsigned char recv_buffer[NR_BUFS][PKT_LEN];
+static unsigned char send_buffer[NR_BUFS][PKT_LEN];
+static unsigned char arrived[NR_BUFS];
 static unsigned char nbuffered = 0;
 static unsigned char frame_expected = 0;
 static unsigned char next_frame_to_send = 0;
 static unsigned char ack_expected = 0;
-static unsigned char too_far = MAX_SEQ + 1;
+static unsigned char too_far = NR_BUFS;
 static unsigned char no_nak = 1;
 static unsigned char oldest_frame = MAX_SEQ + 1;
 static int phl_ready = 0;
 
-static unsigned char inc(unsigned char nr)
+static inline unsigned char inc(unsigned char nr)
 {
     return (nr + 1) % (MAX_SEQ + 1);
+}
+
+static unsigned char find_oldest()
+{
+    unsigned char ans = ack_expected;
+    int min = get_timer(ack_expected);
+    for (unsigned i = ack_expected; i < ack_expected + 5; i++) {
+        if (get_timer(i) < min) {
+            ans = i; min = get_timer(i);
+        }
+    }
+    return ans;
 }
 
 static unsigned char between(unsigned char a, unsigned char b, unsigned char c)
@@ -79,7 +91,7 @@ int main(int argc, char **argv)
     int event, arg;
     struct FRAME f;
     int len = 0;
-    for (unsigned i = 0; i <= MAX_SEQ; i++) arrived[i] = 0; //标记未收到帧
+    for (unsigned i = 0; i < NR_BUFS; i++) arrived[i] = 0; //标记未收到帧
 
     protocol_init(argc, argv); 
     lprintf("Designed by Suo Zhengduo, build: " __DATE__"  "__TIME__"\n");
@@ -104,6 +116,7 @@ int main(int argc, char **argv)
         case FRAME_RECEIVED:
             len = recv_frame((unsigned char*)&f, sizeof f);
             if (len < 5 || crc32((unsigned char*)&f, len) != 0) {
+                if (no_nak) send_data_frame(FRAME_NAK, 0, frame_expected);
                 dbg_event("**** Receiver Error, Bad CRC Checksum\n");
                 break;
             }
@@ -146,7 +159,9 @@ int main(int argc, char **argv)
             break;
 
         case DATA_TIMEOUT:
-            dbg_event("---- DATA %d timeout\n", arg); 
+            dbg_event("---- DATA %d timeout\n", arg);
+            //oldest_frame = ack_expected;
+            oldest_frame = find_oldest();
             send_data_frame(FRAME_DATA, oldest_frame, frame_expected);
             break;
 

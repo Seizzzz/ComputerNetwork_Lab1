@@ -5,6 +5,6 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>-f B</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>-d3 B</LocalDebuggerCommandArguments>
   </PropertyGroup>
 </Project>
