@@ -4,16 +4,16 @@
 #include "protocol.h"
 #include "datalink.h"
 
-#define DATA_TIMER  2000
-#define ACK_TIMER 500
+#define DATA_TIMER  5000
+#define ACK_TIMER 280
 #define MAX_SEQ 43
 #define NR_BUFS ((MAX_SEQ + 1) / 2)
 
 struct FRAME { 
-    unsigned char kind; /* FRAME_DATA */
-    unsigned char ack;
-    unsigned char seq;
-    unsigned char data[PKT_LEN]; 
+    unsigned char kind; //Ö¡ÀàÐÍ(Êý¾ÝÖ¡(1)¡¢ACKÖ¡(2)¡¢NAKÖ¡(3))
+    unsigned char ack; //ackÐòºÅ
+    unsigned char seq; //Ö¡ÐòºÅ
+    unsigned char data[PKT_LEN]; //ÍøÂç²ãÊý¾Ý
     unsigned int  padding;
 };
 
@@ -116,8 +116,8 @@ int main(int argc, char **argv)
         case FRAME_RECEIVED:
             len = recv_frame((unsigned char*)&f, sizeof f);
             if (len < 5 || crc32((unsigned char*)&f, len) != 0) {
-                if (no_nak) send_data_frame(FRAME_NAK, 0, frame_expected);
                 dbg_event("**** Receiver Error, Bad CRC Checksum\n");
+                if (no_nak) send_data_frame(FRAME_NAK, 0, frame_expected);
                 break;
             }
 

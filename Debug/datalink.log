@@ -1,2 +1,4 @@
-﻿  GoBckN(ack).c
+﻿  Selective.c
+C:\Users\SLRYZD\Desktop\Github\ComputerNetwork_Lab1\Selective.c(40,24): warning C4013: “get_timer”未定义；假设外部返回 int
+C:\Users\SLRYZD\Desktop\Github\ComputerNetwork_Lab1\Selective.c(41,39): warning C4018: “<”: 有符号/无符号不匹配
   datalink.vcxproj -> C:\Users\SLRYZD\Desktop\Github\ComputerNetwork_Lab1\Debug\datalink.exe
