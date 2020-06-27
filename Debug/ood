@@ -1,0 +1,38 @@
+000.000 =============================================================
+000.000                     Station A                               
+000.000 -------------------------------------------------------------
+000.000 Protocol.lib, version 4.0, jiangyanjun0718@bupt.edu.cn
+000.000 Channel: 8000 bps, 270 ms propagation delay, bit error rate 0
+000.000 Log file "ood", TCP port 59144, debug mask 0x00
+000.000 Station A is waiting for station B on TCP port 59144 ... Done.
+000.135 New epoch: Fri May 29 15:09:24 2020
+000.135 =================================================================
+000.135 
+000.135 Designed by Suo Zhengduo, build: May 29 2020  14:28:15
+002.522 .... 8 packets received, 7739 bps, 96.74%, Err 0 (0.0e+00)
+004.625 .... 16 packets received, 7765 bps, 97.06%, Err 0 (0.0e+00)
+006.751 .... 24 packets received, 7745 bps, 96.82%, Err 0 (0.0e+00)
+008.871 .... 32 packets received, 7741 bps, 96.76%, Err 0 (0.0e+00)
+010.971 .... 40 packets received, 7753 bps, 96.91%, Err 0 (0.0e+00)
+013.076 .... 48 packets received, 7758 bps, 96.98%, Err 0 (0.0e+00)
+015.217 .... 56 packets received, 7743 bps, 96.79%, Err 0 (0.0e+00)
+017.329 .... 64 packets received, 7745 bps, 96.81%, Err 0 (0.0e+00)
+019.436 .... 72 packets received, 7748 bps, 96.85%, Err 0 (0.0e+00)
+021.542 .... 80 packets received, 7751 bps, 96.89%, Err 0 (0.0e+00)
+023.664 .... 88 packets received, 7749 bps, 96.86%, Err 0 (0.0e+00)
+025.772 .... 96 packets received, 7751 bps, 96.88%, Err 0 (0.0e+00)
+027.883 .... 104 packets received, 7751 bps, 96.89%, Err 0 (0.0e+00)
+029.971 .... 112 packets received, 7758 bps, 96.98%, Err 0 (0.0e+00)
+032.099 .... 120 packets received, 7754 bps, 96.93%, Err 0 (0.0e+00)
+034.218 .... 128 packets received, 7753 bps, 96.91%, Err 0 (0.0e+00)
+036.326 .... 136 packets received, 7754 bps, 96.92%, Err 0 (0.0e+00)
+038.430 .... 144 packets received, 7756 bps, 96.95%, Err 0 (0.0e+00)
+040.547 .... 152 packets received, 7755 bps, 96.94%, Err 0 (0.0e+00)
+042.667 .... 160 packets received, 7754 bps, 96.92%, Err 0 (0.0e+00)
+044.768 .... 168 packets received, 7756 bps, 96.95%, Err 0 (0.0e+00)
+046.895 .... 176 packets received, 7753 bps, 96.92%, Err 0 (0.0e+00)
+048.983 .... 184 packets received, 7757 bps, 96.97%, Err 0 (0.0e+00)
+051.113 .... 192 packets received, 7755 bps, 96.93%, Err 0 (0.0e+00)
+053.223 .... 200 packets received, 7755 bps, 96.94%, Err 0 (0.0e+00)
+055.330 .... 208 packets received, 7756 bps, 96.95%, Err 0 (0.0e+00)
+056.171 TCP Disconnected.
